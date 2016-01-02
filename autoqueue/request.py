@@ -42,6 +42,6 @@ class Requests(object):
 
     def pop(self, filename):
         self.cursor.execute(
-            "DELETE FROM requests WHERE filename = ? ORDER BY id LIMIT 1;",
+            "DELETE FROM requests where id IN (SELECT id from requests where filename = ? ORDER by id LIMIT 1);",
             (filename,))
         self.connection.commit()
